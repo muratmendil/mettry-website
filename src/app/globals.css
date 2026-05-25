@@ -260,3 +260,45 @@ input[type="range"]::-moz-range-thumb {
   box-shadow: 0 2px 8px rgba(5, 137, 133, 0.4);
   cursor: pointer;
 }
+
+.prose-mettry {
+  color: var(--color-ink-primary);
+}
+
+.prose-mettry h2 {
+  font-family: var(--font-display);
+  letter-spacing: -0.018em;
+}
+
+.prose-mettry a {
+  color: var(--accent-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.prose-mettry a:hover {
+  color: var(--accent);
+}
+
+.prose-mettry code {
+  background: var(--color-bg-off-white);
+  border: 1px solid var(--color-border-default);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-family: var(--font-mono);
+}
+
+.prose-mettry blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 18px;
+  font-style: italic;
+  color: var(--color-ink-secondary);
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
