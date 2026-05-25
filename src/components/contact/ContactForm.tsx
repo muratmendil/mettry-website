@@ -38,7 +38,7 @@ export function ContactForm() {
                 </div>
                 <h3 className="mb-3">Message envoyé.</h3>
                 <p className="max-w-sm">
-                    Nous vous répondons sous 24 heures ouvrées. Si c&apos;est urgent, écrivez directement à hello@mettry.io.
+                    Nous vous répondons sous 24 heures ouvrées. Si c&apos;est urgent, écrivez directement à contact@mettry.io.
                 </p>
             </div>
         );

@@ -96,8 +96,8 @@ export function Footer() {
 
                 <div className="mt-16 pt-6 border-t border-white/10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                     <div className="text-xs text-white/60">
-                        © {new Date().getFullYear()} Mettry SAS · 23 rue de la République, 69002 Lyon ·{" "}
-                        <a href="mailto:hello@mettry.io" className="hover:text-white/80">hello@mettry.io</a>
+                        © {new Date().getFullYear()} Mettry SAS · 15 rue des halles, 75001 Paris ·{" "}
+                        <a href="mailto:contact@mettry.io" className="hover:text-white/80">contact@mettry.io</a>
                     </div>
                     <div className="flex items-center gap-3 text-xs text-white/60">
                         <span className={certClass}>SOC 2</span>

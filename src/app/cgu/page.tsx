@@ -22,7 +22,7 @@ export default function CGUPage() {
             </section>
             <section>
                 <h2 className="text-2xl mb-3">4. Résiliation</h2>
-                <p>Vous pouvez résilier votre abonnement à tout moment depuis votre interface de gestion ou par email à hello@mettry.io, avec un préavis d&apos;un mois.</p>
+                <p>Vous pouvez résilier votre abonnement à tout moment depuis votre interface de gestion ou par email à contact@mettry.io, avec un préavis d&apos;un mois.</p>
             </section>
             <section>
                 <p className="text-sm text-ink-tertiary">Document à compléter avec un juriste avant publication officielle. Ce contenu est une trame de référence.</p>

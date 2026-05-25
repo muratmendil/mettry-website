@@ -37,8 +37,8 @@ export default function ContactPage() {
                     {/* Infos */}
                     <aside className="flex flex-col gap-5">
                         <InfoCard icon={Mail} title="Email">
-                            <a href="mailto:hello@mettry.io" className="text-[var(--accent-dark)] hover:underline">
-                                hello@mettry.io
+                            <a href="mailto:contact@mettry.io" className="text-[var(--accent-dark)] hover:underline">
+                                contact@mettry.io
                             </a>
                             <span className="block text-xs text-ink-tertiary mt-1">
                                 Réponse sous 24h ouvrées
@@ -55,8 +55,8 @@ export default function ContactPage() {
                         </InfoCard>
 
                         <InfoCard icon={MapPin} title="Bureaux">
-                            <span>23 rue de la République</span>
-                            <span className="block">69002 Lyon</span>
+                            <span>15 rue des halles</span>
+                            <span className="block">75001 Paris</span>
                         </InfoCard>
 
                         {/* Pré-CTA démo */}
