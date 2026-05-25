@@ -25,7 +25,7 @@ const COLUMNS = [
         links: [
             { href: "/a-propos", label: "À propos" },
             { href: "/contact", label: "Contact" },
-            { href: "https://www.linkedin.com", label: "LinkedIn", external: true },
+            { href: "https://www.linkedin.com/company/mettry", label: "LinkedIn", external: true },
         ],
     },
     {
@@ -62,9 +62,9 @@ export function Footer() {
                         <p className="mt-5 text-white/70 max-w-xs leading-relaxed text-[15px]">
                             Le pilotage de votre patrimoine immobilier, enfin centralisé.
                         </p>
-                        <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Mettry" className="inline-flex items-center justify-center w-10 h-10 mt-6 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+                        <a href="https://www.linkedin.com/company/mettry" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Mettry" className="inline-flex items-center justify-center w-10 h-10 mt-6 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z" />
+                                <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1。78-.77 1。78-1。72V1。72C24 .77 23。2 0 22。22 0z" />
                             </svg>
                         </a>
                         <div className="mt-8 inline-flex items-center gap-3 px-4 py-2.5 rounded-full bg-white/10 border border-white/10">

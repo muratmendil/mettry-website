@@ -93,6 +93,31 @@ h4 {
   text-wrap: balance;
 }
 
+h1:where([class*="text-white"]),
+h2:where([class*="text-white"]),
+h3:where([class*="text-white"]),
+h4:where([class*="text-white"]) {
+  color: white;
+}
+
+p {
+  margin: 0;
+  color: var(--color-ink-secondary);
+  text-wrap: pretty;
+}
+
+p:where([class*="text-white"]) {
+  color: inherit;
+}
+
+h1[class*="text-white/"],
+h2[class*="text-white/"],
+h3[class*="text-white/"],
+h4[class*="text-white/"],
+p[class*="text-white/"] {
+  color: inherit;
+}
+
 h1 {
   font-size: clamp(40px, 5.4vw, 72px);
   font-weight: 800;
@@ -114,12 +139,6 @@ h4 {
   font-size: 18px;
   font-weight: 600;
   letter-spacing: -0.012em;
-}
-
-p {
-  margin: 0;
-  color: var(--color-ink-secondary);
-  text-wrap: pretty;
 }
 
 /* Focus visible accessible */
