@@ -125,7 +125,11 @@ export function FeaturesContent({ initialModule }: Props) {
             </div>
 
             {/* Module actif */}
-            <Section ref={moduleRef as React.Ref<HTMLElement> as undefined /* HTMLDivElement-ish */}>
+            <section
+                ref={moduleRef}
+                className="relative"
+                style={{ paddingTop: "var(--section-y)", paddingBottom: "var(--section-y)" }}
+            >
                 <div ref={moduleRef}>
                     <Container>
                         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.15fr] gap-10 lg:gap-14 items-start mb-14">
@@ -192,7 +196,7 @@ export function FeaturesContent({ initialModule }: Props) {
                         </div>
                     </Container>
                 </div>
-            </Section>
+            </section>
 
             <IntegrationsSection />
             <FinalCTA />
