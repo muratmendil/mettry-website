@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import { Red_Hat_Display, Inter, JetBrains_Mono } from "next/font/google";
+import { DemoModalProvider } from "@/components/chrome/DemoModalProvider";
+import { Navbar } from "@/components/chrome/Navbar";
+import { Footer } from "@/components/chrome/Footer";
+import { DemoModal } from "@/components/chrome/DemoModal";
 import "./globals.css";
 
 const redHatDisplay = Red_Hat_Display({
@@ -24,7 +28,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Mettry · Le pilotage de votre patrimoine immobilier, enfin centralisé",
+  title:
+    "Mettry · Le pilotage de votre patrimoine immobilier, enfin centralisé",
   description:
     "Mettry est la plateforme SaaS tout-en-un qui remplace votre GMAO, votre suivi énergétique, votre ticketing et votre GED. Données hébergées en France. Décret Tertiaire intégré.",
 };
@@ -37,7 +42,14 @@ export default function RootLayout({
       lang="fr"
       className={`${redHatDisplay.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <DemoModalProvider>
+          <Navbar />
+          {children}
+          <Footer />
+          <DemoModal />
+        </DemoModalProvider>
+      </body>
     </html>
   );
 }
