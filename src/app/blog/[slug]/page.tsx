@@ -6,6 +6,7 @@ import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { getAllPosts, getPostBySlug } from "@/lib/blog";
 import { FinalCTA } from "@/components/home/FinalCTA";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 export async function generateStaticParams() {
     return getAllPosts().map((p) => ({ slug: p.slug }));
@@ -34,6 +35,18 @@ export default async function BlogPostPage({ params }: Props) {
         source: post.content,
         components: mdxComponents,
     });
+
+    const postJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        headline: post.meta.title,
+        description: post.meta.excerpt,
+        datePublished: post.meta.date,
+        author: { "@type": "Organization", name: "Mettry" },
+        publisher: { "@type": "Organization", name: "Mettry", logo: { "@type": "ImageObject", url: "https://mettry.io/opengraph-image" } },
+    };
+
+    <JsonLd id="post-jsonld" data={postJsonLd} />
 
     return (
         <>
