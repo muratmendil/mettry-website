@@ -1,17 +1,13 @@
+import "server-only";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import type { PostMeta } from "./blog-types";
+
+export type { PostMeta };
+export { BLOG_CATEGORIES } from "./blog-types";
 
 const BLOG_DIR = path.join(process.cwd(), "src/content/blog");
-
-export interface PostMeta {
-    slug: string;
-    title: string;
-    excerpt: string;
-    date: string;
-    category: string;
-    readingTime: string;
-}
 
 export function getAllPosts(): PostMeta[] {
     if (!fs.existsSync(BLOG_DIR)) return [];
@@ -52,12 +48,3 @@ export function getPostBySlug(slug: string): { meta: PostMeta; content: string }
         content,
     };
 }
-
-export const BLOG_CATEGORIES = [
-    "Tous",
-    "Décret Tertiaire",
-    "GMAO",
-    "Énergie",
-    "Guides",
-    "Études de cas",
-] as const;
