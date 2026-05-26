@@ -180,22 +180,17 @@ export function HeroDashboard() {
 function FloatingCardEnergy() {
     return (
         <div
-            className="absolute -left-4 sm:-left-8 top-[15%] bg-white rounded-card border border-border-default p-3.5 z-10"
-            style={{
-                boxShadow: "var(--shadow-lg-mettry)",
-                animation: "floatSlow 4s ease-in-out infinite",
-            }}
+            className="hidden sm:flex absolute -right-2 sm:right-2 top-[8%] bg-white rounded-card border border-border-default p-3.5 z-10 items-center gap-3"
+            style={{ boxShadow: "var(--shadow-lg-mettry)", animation: "floatSlow 4s ease-in-out infinite" }}
         >
-            <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-md flex items-center justify-center" style={{ background: "rgba(7,188,12,0.12)" }}>
-                    <Bolt size={18} style={{ color: "#07BC0C" }} />
+            <div className="w-9 h-9 rounded-md flex items-center justify-center" style={{ background: "rgba(7,188,12,0.12)" }}>
+                <Bolt size={18} style={{ color: "#07BC0C" }} />
+            </div>
+            <div>
+                <div className="text-sm font-bold leading-tight" style={{ fontFamily: "var(--font-display)" }}>
+                    <span style={{ color: "#07BC0C" }}>−14%</span> conso. énergie
                 </div>
-                <div>
-                    <div className="text-[10px] uppercase tracking-wider text-ink-tertiary font-semibold">Conso énergie</div>
-                    <div className="text-base font-bold leading-tight" style={{ fontFamily: "var(--font-display)" }}>
-                        <span className="text-success">−14%</span> ce mois
-                    </div>
-                </div>
+                <div className="text-[11px] text-ink-tertiary mt-0.5">vs N-1 sur 12 sites</div>
             </div>
         </div>
     );
@@ -204,24 +199,12 @@ function FloatingCardEnergy() {
 function FloatingCardOperat() {
     return (
         <div
-            className="absolute -right-2 sm:-right-6 bottom-[12%] bg-white rounded-card border border-border-default p-3.5 z-10"
-            style={{
-                boxShadow: "var(--shadow-lg-mettry)",
-                animation: "floatSlow 4s ease-in-out infinite",
-                animationDelay: "1s",
-            }}
+            className="hidden sm:flex absolute -left-4 sm:left-6 -bottom-4 bg-white rounded-card border border-border-default px-4 py-2.5 z-10 items-center gap-2.5"
+            style={{ boxShadow: "var(--shadow-lg-mettry)", animation: "floatSlow 4s ease-in-out infinite", animationDelay: "1s" }}
         >
-            <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-md flex items-center justify-center" style={{ background: "var(--accent-light)" }}>
-                    <FileText size={18} style={{ color: "var(--accent-dark)" }} />
-                </div>
-                <div>
-                    <div className="text-[10px] uppercase tracking-wider text-ink-tertiary font-semibold">Décret Tertiaire</div>
-                    <div className="text-base font-bold leading-tight" style={{ fontFamily: "var(--font-display)" }}>
-                        Export OPERAT prêt
-                    </div>
-                </div>
-            </div>
+            <span className="w-2 h-2 rounded-full bg-success" style={{ animation: "pulseDot 2s ease-in-out infinite" }} />
+            <span className="text-xs font-semibold" style={{ color: "var(--accent-dark)" }}>OPERAT</span>
+            <span className="text-xs text-ink-secondary">— 12 bâtiments prêts à déclarer</span>
         </div>
     );
 }
