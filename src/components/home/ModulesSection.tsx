@@ -1,112 +1,150 @@
 "use client";
 
 import Link from "next/link";
-import { Wrench, Bolt, Inbox, FolderOpen, FileText, Calendar, ArrowRight } from "lucide-react";
-import { Section } from "@/components/ui/Section";
+import { Wrench, Bolt, Inbox, FolderOpen, FileText, Calendar, ArrowRight, type LucideIcon } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
+import { DecorGmao, DecorEnergy, DecorTicketing, DecorGed, DecorContracts, DecorPlanning } from "./module-decors";
 
-const MODULES = [
+interface ModuleCardData {
+    id: string;
+    icon: LucideIcon;
+    color: string;
+    title: string;
+    desc: string;
+    decor: React.ReactNode;
+    decorPos: "full" | "right";
+}
+
+const MODULES: ModuleCardData[] = [
     {
         id: "gmao",
         icon: Wrench,
         color: "#058985",
         title: "GMAO",
-        desc: "Tickets, ordres de travail, planning techniciens, historique d'interventions par bâtiment.",
+        desc: "Maintenance préventive et curative, rappels réglementaires, historique par installation.",
+        decor: <DecorGmao />,
+        decorPos: "full",
     },
     {
         id: "energie",
         icon: Bolt,
         color: "#F5A042",
         title: "Suivi énergétique",
-        desc: "Connexion GRDF & Enedis, courbes de charge, détection d'anomalies, alertes automatiques.",
+        desc: "Import auto GRDF/Enedis, kWh/m², DJU, analyses prospectives.",
+        decor: <DecorEnergy />,
+        decorPos: "full",
     },
     {
         id: "ticketing",
         icon: Inbox,
         color: "#3498DB",
         title: "Ticketing",
-        desc: "Signalement par les occupants via QR code, attribution automatique, suivi SLA.",
+        desc: "Création, affectation, résolution. Lien avec installation, KPIs pannes.",
+        decor: <DecorTicketing />,
+        decorPos: "right",
     },
     {
         id: "ged",
         icon: FolderOpen,
         color: "#7A5AE0",
         title: "GED",
-        desc: "Documents par bâtiment, recherche full-text, partage sécurisé, dates de péremption.",
+        desc: "Documents liés aux installations, contrats, alertes. Recherche multi-critères.",
+        decor: <DecorGed />,
+        decorPos: "right",
     },
     {
         id: "contrats",
         icon: FileText,
-        color: "#0D4A4D",
+        color: "#4A5560",
         title: "Contrats",
-        desc: "Suivi des prestataires, échéances, renouvellements, alertes contractuelles automatiques.",
+        desc: "Liste centralisée, interlocuteurs, alertes préavis, fournisseurs.",
+        decor: <DecorContracts />,
+        decorPos: "full",
     },
     {
         id: "planning",
         icon: Calendar,
-        color: "#07BC0C",
+        color: "#197378",
         title: "Planning techniciens",
-        desc: "Visibilité temps réel, affectation glisser-déposer, mobile pour les équipes terrain.",
+        desc: "Calendrier équipes et sous-traitants. Vue semaine/mois, tâches non assignées.",
+        decor: <DecorPlanning />,
+        decorPos: "full",
     },
 ];
 
 export function ModulesSection() {
     return (
-        <section className="bg-bg-off-white border-y border-border-default py-20 lg:py-28">
+        <section className="border-y border-border-default py-20 lg:py-28" style={{ background: "var(--color-bg-off-white)" }}>
             <Container>
-                <div className="max-w-3xl mb-12">
-                    <Eyebrow>Modules</Eyebrow>
-                    <RevealOnScroll>
-                        <h2 className="mt-6">Six modules, une seule interface.</h2>
-                    </RevealOnScroll>
+                {/* Header 2 colonnes */}
+                <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-8 lg:gap-16 items-start mb-12 lg:mb-16">
+                    <div>
+                        <Eyebrow>Modules</Eyebrow>
+                        <RevealOnScroll>
+                            <h2 className="mt-5">Une plateforme. Six modules. Zéro compromis.</h2>
+                        </RevealOnScroll>
+                    </div>
                     <RevealOnScroll delay={0.1}>
-                        <p className="mt-5 text-lg max-w-[56ch]">
-                            Pas besoin de prendre tous les modules — chaque entité active ce dont elle a besoin et étend progressivement.
+                        <p className="text-lg leading-relaxed mt-2 lg:mt-12">
+                            Activez ce dont vous avez besoin, ajoutez le reste plus tard. Sans rupture de données, ni double saisie.
                         </p>
                     </RevealOnScroll>
                 </div>
 
+                {/* Grid 6 cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
-                    {MODULES.map((m, i) => {
-                        const Icon = m.icon;
-                        return (
-                            <RevealOnScroll key={m.id} delay={(i % 3) * 0.08}>
-                                <Link
-                                    href={`/fonctionnalites?module=${m.id}`}
-                                    className="group relative block h-full bg-white border border-border-default rounded-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-card)] hover:border-[var(--accent-xlight)] overflow-hidden"
-                                >
-                                    <div
-                                        className="w-11 h-11 rounded-md flex items-center justify-center mb-5"
-                                        style={{ background: `${m.color}15` }}
-                                    >
-                                        <Icon size={22} style={{ color: m.color }} />
-                                    </div>
-                                    <h3 className="mb-2">{m.title}</h3>
-                                    <p className="text-[15px] leading-relaxed">{m.desc}</p>
-                                    <div className="mt-5 flex items-center gap-1.5 text-sm font-semibold text-[var(--accent-dark)]">
-                                        Explorer le module
-                                        <ArrowRight
-                                            size={15}
-                                            className="transition-transform duration-300 group-hover:translate-x-1"
-                                        />
-                                    </div>
-
-                                    {/* Decoration discrète au hover */}
-                                    <div
-                                        className="absolute -right-4 -bottom-4 w-24 h-24 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                                        style={{
-                                            background: `radial-gradient(circle, ${m.color}20, transparent 70%)`,
-                                        }}
-                                        aria-hidden="true"
-                                    />
-                                </Link>
-                            </RevealOnScroll>
-                        );
-                    })}
+                    {MODULES.map((m, i) => (
+                        <RevealOnScroll key={m.id} delay={(i % 3) * 0.08}>
+                            <ModuleCard data={m} />
+                        </RevealOnScroll>
+                    ))}
                 </div>
             </Container>
         </section>
+    );
+}
+
+function ModuleCard({ data }: { data: ModuleCardData }) {
+    const Icon = data.icon;
+
+    return (
+        <Link
+            href={`/fonctionnalites?module=${data.id}`}
+            className="group relative block h-full bg-white border border-border-default rounded-card overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-card)]"
+        >
+            <div className="relative p-7 pb-8 min-h-[260px] flex flex-col">
+                {/* Icon */}
+                <div className="w-11 h-11 rounded-md flex items-center justify-center mb-6" style={{ background: `${data.color}15` }}>
+                    <Icon size={20} style={{ color: data.color }} />
+                </div>
+
+                {/* Title + desc */}
+                <h3 className="mb-2.5 text-[22px]" style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.018em" }}>
+                    {data.title}
+                </h3>
+                <p className="text-[14px] leading-relaxed mb-6 max-w-[28ch]">{data.desc}</p>
+
+                {/* CTA — couleur du module */}
+                <div className="mt-auto inline-flex items-center gap-1.5 text-sm font-semibold" style={{ color: data.color }}>
+                    Explorer le module
+                    <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
+                </div>
+
+                {/* Décoration — cachée par défaut, révélée au hover */}
+                <div
+                    className="absolute pointer-events-none transition-opacity duration-500 opacity-0 group-hover:opacity-100"
+                    style={{
+                        ...(data.decorPos === "full"
+                            ? { right: 0, bottom: 0, width: "55%", height: "44%" }
+                            : { right: 20, bottom: 20, width: "35%", height: "40%" }),
+                    }}
+                    aria-hidden="true"
+                >
+                    {data.decor}
+                </div>
+            </div>
+        </Link>
     );
 }
