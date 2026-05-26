@@ -42,7 +42,7 @@ export function FeaturesContent({ initialModule }: Props) {
     const handleSelect = (idx: number) => {
         setActive(idx);
         if (moduleRef.current) {
-            const offset = 68 + 64;
+            const offset = 72 + 64;
             const top =
                 moduleRef.current.getBoundingClientRect().top + window.scrollY - offset;
             window.scrollTo({ top, behavior: "smooth" });
@@ -98,7 +98,7 @@ export function FeaturesContent({ initialModule }: Props) {
             {/* Tabs sticky */}
             <div
                 ref={tabsRef}
-                className="sticky top-[68px] z-30 bg-white/90 backdrop-blur-[14px] backdrop-saturate-[160%] border-y border-border-default"
+                className="sticky top-[72px] z-30 bg-white/90 backdrop-blur-[14px] backdrop-saturate-[160%] border-y border-border-default"
             >
                 <Container>
                     <div
