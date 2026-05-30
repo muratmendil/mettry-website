@@ -55,9 +55,18 @@ export function FeaturesContent({ initialModule }: Props) {
     return (
         <>
             {/* Hero */}
-            <Section>
+            {/* Hero */}
+            <section style={{ background: "var(--color-bg-off-white)" }} className="relative overflow-hidden py-20 lg:py-28">
+                <div
+                    className="absolute -top-20 -left-32 w-[500px] h-[500px] rounded-full pointer-events-none"
+                    style={{
+                        background: "radial-gradient(circle, rgba(5,137,133,0.08), transparent 60%)",
+                        filter: "blur(60px)",
+                    }}
+                    aria-hidden="true"
+                />
                 <Container>
-                    <div className="max-w-3xl">
+                    <div className="relative max-w-3xl mx-auto text-center">
                         <Eyebrow>Fonctionnalités</Eyebrow>
                         <RevealOnScroll>
                             <h1 className="mt-6">
@@ -66,12 +75,11 @@ export function FeaturesContent({ initialModule }: Props) {
                             </h1>
                         </RevealOnScroll>
                         <RevealOnScroll delay={0.1}>
-                            <p className="mt-6 text-lg lg:text-xl max-w-[56ch]">
-                                Sept modules pensés pour s&apos;assembler. Activez ce dont vous
-                                avez besoin, étendez progressivement, payez à l&apos;usage réel.
+                            <p className="mt-6 text-lg lg:text-xl max-w-[56ch] mx-auto">
+                                Sept modules pensés pour s&apos;assembler. Activez ce dont vous avez besoin, étendez progressivement, payez à l&apos;usage réel.
                             </p>
                         </RevealOnScroll>
-                        <div className="mt-8 flex flex-wrap items-center gap-3">
+                        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
                             <Button size="lg" onClick={openDemo}>
                                 Demander une démo <ArrowRight size={18} />
                             </Button>
@@ -80,10 +88,7 @@ export function FeaturesContent({ initialModule }: Props) {
                                 variant="ghost"
                                 onClick={() => {
                                     if (tabsRef.current) {
-                                        const top =
-                                            tabsRef.current.getBoundingClientRect().top +
-                                            window.scrollY -
-                                            80;
+                                        const top = tabsRef.current.getBoundingClientRect().top + window.scrollY - 80;
                                         window.scrollTo({ top, behavior: "smooth" });
                                     }
                                 }}
@@ -93,7 +98,7 @@ export function FeaturesContent({ initialModule }: Props) {
                         </div>
                     </div>
                 </Container>
-            </Section>
+            </section>
 
             {/* Tabs sticky */}
             <div

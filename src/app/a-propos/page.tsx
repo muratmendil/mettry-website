@@ -5,8 +5,9 @@ import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
 import { FinalCTA } from "@/components/home/FinalCTA";
 
 export const metadata = {
-    title: "À propos · Mettry",
-    description: "L'histoire de Mettry : trois fondateurs, une conviction — le pilotage de patrimoine immobilier mérite mieux qu'un patchwork d'outils.",
+    title: "À propos",
+    description:
+        "L'histoire de Mettry : trois fondateurs, une conviction — le pilotage de patrimoine immobilier mérite mieux qu'un patchwork d'outils.",
 };
 
 const STATS = [
@@ -34,44 +35,53 @@ const TEAM = [
 export default function AboutPage() {
     return (
         <>
-            <Section>
+            {/* Hero centré sur fond off-white */}
+            <section style={{ background: "var(--color-bg-off-white)" }} className="relative overflow-hidden py-20 lg:py-28">
+                <div
+                    className="absolute -top-20 -left-32 w-[500px] h-[500px] rounded-full pointer-events-none"
+                    style={{
+                        background: "radial-gradient(circle, rgba(5,137,133,0.08), transparent 60%)",
+                        filter: "blur(60px)",
+                    }}
+                    aria-hidden="true"
+                />
                 <Container>
-                    <div className="max-w-3xl">
+                    <div className="relative max-w-3xl mx-auto text-center">
                         <Eyebrow>À propos</Eyebrow>
                         <RevealOnScroll>
                             <h1 className="mt-6">Trois fondateurs, une conviction.</h1>
                         </RevealOnScroll>
                         <RevealOnScroll delay={0.1}>
-                            <p className="mt-6 text-lg lg:text-xl max-w-[56ch]">
+                            <p className="mt-6 text-lg lg:text-xl max-w-[56ch] mx-auto">
                                 Mettry est née de la frustration concrète de gérer un parc avec quatre outils
                                 disparates. On a construit ce qu&apos;on aurait voulu avoir.
                             </p>
                         </RevealOnScroll>
-                    </div>
 
-                    {/* Stats */}
-                    <div className="mt-14 grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-10 pt-12 border-t border-border-default">
-                        {STATS.map((s, i) => (
-                            <RevealOnScroll key={s.label} delay={i * 0.06}>
-                                <div>
-                                    <div
-                                        className="text-4xl lg:text-5xl font-bold leading-none text-[var(--accent-dark)]"
-                                        style={{ fontFamily: "var(--font-display)" }}
-                                    >
-                                        {s.value}
+                        {/* Stats */}
+                        <div className="mt-14 grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-10 pt-12 border-t border-border-default text-left">
+                            {STATS.map((s, i) => (
+                                <RevealOnScroll key={s.label} delay={i * 0.06}>
+                                    <div>
+                                        <div
+                                            className="text-4xl lg:text-5xl font-bold leading-none text-[var(--accent-dark)]"
+                                            style={{ fontFamily: "var(--font-display)" }}
+                                        >
+                                            {s.value}
+                                        </div>
+                                        <div className="text-xs text-ink-tertiary uppercase tracking-wider font-semibold mt-3">
+                                            {s.label}
+                                        </div>
                                     </div>
-                                    <div className="text-xs text-ink-tertiary uppercase tracking-wider font-semibold mt-3">
-                                        {s.label}
-                                    </div>
-                                </div>
-                            </RevealOnScroll>
-                        ))}
+                                </RevealOnScroll>
+                            ))}
+                        </div>
                     </div>
                 </Container>
-            </Section>
+            </section>
 
             {/* Timeline */}
-            <section className="bg-bg-off-white border-y border-border-default" style={{ paddingTop: "var(--section-y)", paddingBottom: "var(--section-y)" }}>
+            <section className="bg-white border-y border-border-default" style={{ paddingTop: "var(--section-y)", paddingBottom: "var(--section-y)" }}>
                 <Container>
                     <div className="max-w-3xl mb-12">
                         <Eyebrow>Notre parcours</Eyebrow>
@@ -81,14 +91,12 @@ export default function AboutPage() {
                     </div>
 
                     <div className="relative max-w-3xl mx-auto">
-                        {/* Ligne verticale */}
                         <div className="absolute left-4 lg:left-5 top-2 bottom-2 w-px bg-border-default" aria-hidden="true" />
 
                         <div className="flex flex-col gap-10">
                             {TIMELINE.map((item, i) => (
                                 <RevealOnScroll key={item.year} delay={i * 0.05}>
                                     <div className="relative pl-14 lg:pl-16">
-                                        {/* Pastille */}
                                         <div
                                             className="absolute left-0 top-1 w-9 lg:w-11 h-9 lg:h-11 rounded-full bg-white border-2 flex items-center justify-center text-xs lg:text-sm font-bold"
                                             style={{ borderColor: "var(--accent)", color: "var(--accent-dark)", fontFamily: "var(--font-display)" }}

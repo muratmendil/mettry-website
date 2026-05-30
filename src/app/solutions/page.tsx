@@ -16,22 +16,29 @@ export const metadata = {
 export default function SolutionsPage() {
     return (
         <>
-            <Section>
+            <section style={{ background: "var(--color-bg-off-white)" }} className="relative overflow-hidden py-20 lg:py-28">
+                <div
+                    className="absolute -top-20 -left-32 w-[500px] h-[500px] rounded-full pointer-events-none"
+                    style={{
+                        background: "radial-gradient(circle, rgba(5,137,133,0.08), transparent 60%)",
+                        filter: "blur(60px)",
+                    }}
+                    aria-hidden="true"
+                />
                 <Container>
-                    <div className="max-w-3xl">
+                    <div className="relative max-w-3xl mx-auto text-center">
                         <Eyebrow>Solutions</Eyebrow>
                         <RevealOnScroll>
-                            <h1 className="mt-6">Pensé pour les organisations qui pilotent un parc.</h1>
+                            <h1 className="mt-6">Une plateforme, plusieurs métiers.</h1>
                         </RevealOnScroll>
                         <RevealOnScroll delay={0.1}>
-                            <p className="mt-6 text-lg lg:text-xl max-w-[56ch]">
-                                Mettry s&apos;adapte à votre métier. Voici comment nos clients utilisent
-                                la plateforme selon leur typologie d&apos;activité.
+                            <p className="mt-6 text-lg lg:text-xl max-w-[56ch] mx-auto">
+                                Mettry s&apos;adapte aux contextes les plus exigeants. Découvrez ce que la centralisation change concrètement pour votre secteur.
                             </p>
                         </RevealOnScroll>
                     </div>
                 </Container>
-            </Section>
+            </section>
 
             {/* Solutions par typologie */}
             <div>
@@ -48,7 +55,7 @@ export default function SolutionsPage() {
                             <Container>
                                 <div className={`grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-10 lg:gap-14 items-start ${reversed ? "lg:[&>*:first-child]:order-2" : ""}`}>
                                     <div>
-                                        <div className="flex items-center gap-3 mb-5">
+                                        <div className="flex items-center gap-3 mb-6">
                                             <div
                                                 className="w-12 h-12 rounded-card flex items-center justify-center"
                                                 style={{ background: `${sol.color}15` }}
@@ -62,16 +69,17 @@ export default function SolutionsPage() {
                                                 {sol.label}
                                             </span>
                                         </div>
-                                        <h2 className="mb-7">{sol.title}</h2>
 
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-8">
+                                        <h2>{sol.title}</h2>
+
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-12 mt-14 lg:mt-16 mb-8">
                                             <div>
-                                                <div className="text-xs uppercase tracking-wider font-semibold text-error mb-4">
+                                                <div className="text-xs uppercase tracking-wider font-semibold text-error mb-6">
                                                     Vos contraintes
                                                 </div>
-                                                <ul className="flex flex-col gap-3">
+                                                <ul className="flex flex-col gap-4">
                                                     {sol.pains.map((p) => (
-                                                        <li key={p} className="flex items-start gap-2.5 text-[14px] leading-relaxed">
+                                                        <li key={p} className="flex items-start gap-3 text-[14px] leading-relaxed">
                                                             <AlertCircle size={14} className="text-error shrink-0 mt-1" />
                                                             <span>{p}</span>
                                                         </li>
@@ -79,12 +87,12 @@ export default function SolutionsPage() {
                                                 </ul>
                                             </div>
                                             <div>
-                                                <div className="text-xs uppercase tracking-wider font-semibold text-[var(--accent-dark)] mb-4">
+                                                <div className="text-xs uppercase tracking-wider font-semibold text-[var(--accent-dark)] mb-6">
                                                     Ce que Mettry apporte
                                                 </div>
-                                                <ul className="flex flex-col gap-3">
+                                                <ul className="flex flex-col gap-4">
                                                     {sol.benefits.map((b) => (
-                                                        <li key={b} className="flex items-start gap-2.5 text-[14px] leading-relaxed">
+                                                        <li key={b} className="flex items-start gap-3 text-[14px] leading-relaxed">
                                                             <Check size={14} className="text-[var(--accent-dark)] shrink-0 mt-1" strokeWidth={3} />
                                                             <span>{b}</span>
                                                         </li>
