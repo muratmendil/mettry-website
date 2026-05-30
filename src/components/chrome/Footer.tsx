@@ -58,7 +58,7 @@ export function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1fr] gap-12 lg:gap-8">
 
                     <div>
-                        <MettryLogo size={28} tone="light" />
+                        <MettryLogo size={28} variant="full" color="#FFFFFF" />
                         <p className="mt-5 text-white/70 max-w-xs leading-relaxed text-[15px]">
                             Le pilotage de votre patrimoine immobilier, enfin centralisé.
                         </p>

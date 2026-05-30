@@ -28,9 +28,9 @@ export default function StyleguidePage() {
                         <MettryLogo size={24} />
                         <MettryLogo size={32} />
                         <MettryLogo size={48} />
-                        <MettryLogo glyphOnly size={40} />
+                        <MettryLogo variant="glyph" size={40} />
                         <div className="bg-teal-deeper p-6 rounded-card">
-                            <MettryLogo size={32} tone="light" />
+                            <MettryLogo size={32} variant="full" color="#FFFFFF" />
                         </div>
                     </div>
                 </Container>

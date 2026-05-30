@@ -1,59 +1,47 @@
+import Image from "next/image";
 import { cn } from "@/lib/cn";
 
 interface MettryLogoProps {
     className?: string;
     size?: number;
-    glyphOnly?: boolean;
-    tone?: "dark" | "light";
+    variant?: "glyph" | "full";
+    color?: string;
 }
 
 export function MettryLogo({
     className,
     size = 28,
-    glyphOnly = false,
-    tone = "dark",
+    variant = "full",
+    color,
 }: MettryLogoProps) {
-    const textColor = tone === "dark" ? "#0C1416" : "#FFFFFF";
+    const showWordmark = variant === "full";
+    const wordmarkColor = color ?? "#0C1416";
+    const glyphAlt = showWordmark ? "" : "Mettry";
 
     return (
         <span
-            className={cn("inline-flex items-center gap-2", className)}
-            aria-label="Mettry"
+            className={cn("inline-flex items-center", className)}
+            style={showWordmark ? { gap: size * 0.3 } : undefined}
         >
-            {/* Glyphe — remplace ce SVG par le tien quand tu l'auras */}
-            <svg
-                width={size}
-                height={size}
-                viewBox="0 0 32 32"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-            >
-                <rect width="32" height="32" rx="7" fill="#0D4A4D" />
-                <text
-                    x="50%"
-                    y="50%"
-                    textAnchor="middle"
-                    dominantBaseline="central"
-                    fill="#FFFFFF"
-                    fontFamily="var(--font-display)"
-                    fontSize="18"
-                    fontWeight="800"
-                    dx="-2"
-                    letterSpacing="-1"
-                >
-                    M
-                </text>
-                <circle cx="22.5" cy="22" r="1.8" fill="#F5A042" />
-            </svg>
+            <span className="inline-flex shrink-0" style={{ width: size, height: size }}>
+                <Image
+                    src="/logo-mettry.png"
+                    alt={glyphAlt}
+                    width={size}
+                    height={size}
+                    style={{ objectFit: "contain", width: size, height: size }}
+                    aria-hidden={showWordmark ? true : undefined}
+                />
+            </span>
 
-            {!glyphOnly && (
+            {showWordmark && (
                 <span
                     className="font-display"
                     style={{
-                        fontSize: size * 0.7,
-                        color: textColor,
-                        letterSpacing: "-0.025em",
-                        fontWeight: 700,
+                        fontSize: size * 0.72,
+                        color: wordmarkColor,
+                        letterSpacing: "-0.035em",
+                        fontWeight: 800,
                         lineHeight: 1,
                     }}
                 >

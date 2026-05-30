@@ -63,13 +63,19 @@ export const metadata: Metadata = {
         height: 630,
         alt: "Mettry",
       },
+      {
+        url: "/logo-mettry.png",
+        width: 800,
+        height: 800,
+        alt: "Mettry logo",
+      },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Mettry · Le pilotage de votre patrimoine immobilier",
     description: "La plateforme tout-en-un pour piloter votre patrimoine immobilier.",
-    images: ["/opengraph-image"],
+    images: ["/opengraph-image", "/logo-mettry.png"],
   },
   robots: {
     index: true,

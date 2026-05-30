@@ -50,7 +50,7 @@ export function Navbar() {
                 <div className="mx-auto flex items-center justify-between h-[72px] relative" style={innerStyle}>
 
                     <Link href="/" aria-label="Mettry — accueil" className="shrink-0">
-                        <MettryLogo size={28} />
+                        <MettryLogo size={28} variant="full" />
                     </Link>
 
                     <nav className="hidden lg:flex items-center gap-1 absolute left-1/2 -translate-x-1/2" aria-label="Navigation principale">
@@ -92,7 +92,7 @@ export function Navbar() {
                     <Dialog.Content className="fixed inset-y-0 right-0 z-50 w-full max-w-sm bg-white shadow-xl flex flex-col">
                         <Dialog.Title className="sr-only">Menu</Dialog.Title>
                         <div className="flex items-center justify-between p-5 border-b border-border-default">
-                            <MettryLogo size={26} />
+                            <MettryLogo size={26} variant="full" />
                             <Dialog.Close className="inline-flex items-center justify-center w-10 h-10 rounded-btn hover:bg-bg-light" aria-label="Fermer le menu">
                                 <X size={22} />
                             </Dialog.Close>
