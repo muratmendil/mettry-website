@@ -1,19 +1,25 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { compileMDX } from "next-mdx-remote/rsc";
-import { ArrowLeft } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { Section } from "@/components/ui/Section";
-import { getAllPosts, getPostBySlug } from "@/lib/blog";
+import { ArticleProse } from "@/components/blog/ArticleProse";
+import { TableOfContents } from "@/components/blog/TableOfContents";
+import { BreadcrumbBlog } from "@/components/blog/BreadcrumbBlog";
+import { AuthorBox } from "@/components/blog/AuthorBox";
+import { RelatedArticles } from "@/components/blog/RelatedArticles";
 import { FinalCTA } from "@/components/home/FinalCTA";
-import { JsonLd } from "@/components/seo/JsonLd";
-
-export async function generateStaticParams() {
-    return getAllPosts().map((p) => ({ slug: p.slug }));
-}
+import { blogMdxComponents } from "@/components/blog/mdx-components";
+import { getAllPosts, getPostBySlug, getRelatedPosts, extractHeadings } from "@/lib/blog";
+import { getAuthor } from "@/lib/authors";
+import { getCategoryByLabel } from "@/lib/categories";
+import { ArticleMetaBar } from "@/components/blog/ArticleMetaBar";
+import { ArticleHeroImage } from "@/components/blog/ArticleHeroImage";
 
 interface Props {
     params: Promise<{ slug: string }>;
+}
+
+export async function generateStaticParams() {
+    return getAllPosts().map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: Props) {
@@ -21,75 +27,113 @@ export async function generateMetadata({ params }: Props) {
     const post = getPostBySlug(slug);
     if (!post) return {};
     return {
-        title: `${post.meta.title} · Mettry`,
-        description: post.meta.excerpt,
+        title: post.meta.seo?.title ?? post.meta.title,
+        description: post.meta.seo?.description ?? post.meta.excerpt,
+        openGraph: {
+            title: post.meta.title,
+            description: post.meta.excerpt,
+            type: "article",
+            publishedTime: post.meta.date,
+            authors: [getAuthor(post.meta.author).name],
+        },
     };
 }
+
+export const revalidate = 3600; // ISR : revalidation toutes les heures
 
 export default async function BlogPostPage({ params }: Props) {
     const { slug } = await params;
     const post = getPostBySlug(slug);
     if (!post) notFound();
 
+    const author = getAuthor(post.meta.author);
+    const category = getCategoryByLabel(post.meta.category);
+    const headings = extractHeadings(post.content);
+    const related = getRelatedPosts(slug, 3);
+    const articleUrl = `https://mettry.io/blog/${slug}`;
+
     const { content } = await compileMDX({
         source: post.content,
-        components: mdxComponents,
+        components: blogMdxComponents,
+        options: { parseFrontmatter: false },
     });
-
-    const postJsonLd = {
-        "@context": "https://schema.org",
-        "@type": "BlogPosting",
-        headline: post.meta.title,
-        description: post.meta.excerpt,
-        datePublished: post.meta.date,
-        author: { "@type": "Organization", name: "Mettry" },
-        publisher: { "@type": "Organization", name: "Mettry", logo: { "@type": "ImageObject", url: "https://mettry.io/opengraph-image" } },
-    };
-
-    <JsonLd id="post-jsonld" data={postJsonLd} />
 
     return (
         <>
-            <Section>
+            {/* Hero header */}
+            <section style={{ background: "var(--color-bg-off-white)" }} className="relative overflow-hidden pt-12 pb-10 lg:pt-16 lg:pb-12">
+                <div
+                    className="absolute -top-32 -right-20 w-[500px] h-[500px] rounded-full pointer-events-none"
+                    style={{
+                        background: "radial-gradient(circle, rgba(5,137,133,0.1), transparent 60%)",
+                        filter: "blur(60px)",
+                    }}
+                    aria-hidden="true"
+                />
                 <Container>
-                    <div className="max-w-2xl mx-auto">
-                        <Link
-                            href="/blog"
-                            className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent-dark)] mb-8 hover:underline"
-                        >
-                            <ArrowLeft size={14} /> Tous les articles
-                        </Link>
+                    <div className="relative max-w-[1080px] mx-auto">
+                        <BreadcrumbBlog category={post.meta.category} />
 
-                        <div className="flex items-center gap-3 mb-6 text-xs text-ink-tertiary">
-                            <span className="font-semibold uppercase tracking-wider text-[var(--accent-dark)]">
+                        <div className="flex flex-wrap items-center gap-2 mb-6">
+                            <span
+                                className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-[0.04em]"
+                                style={{
+                                    background: `${category?.color ?? "#058985"}15`,
+                                    color: category?.color ?? "#058985",
+                                }}
+                            >
                                 {post.meta.category}
                             </span>
-                            <span>·</span>
-                            <span>{new Date(post.meta.date).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}</span>
-                            <span>·</span>
-                            <span>{post.meta.readingTime} de lecture</span>
                         </div>
 
-                        <h1 className="mb-6">{post.meta.title}</h1>
-                        <p className="text-lg lg:text-xl text-ink-secondary mb-10">{post.meta.excerpt}</p>
+                        <h1 className="mb-6" style={{ fontSize: "clamp(36px, 4.4vw, 56px)", letterSpacing: "-0.035em", lineHeight: 1.08 }}>
+                            {post.meta.title}
+                        </h1>
 
-                        <article className="prose-mettry">{content}</article>
+                        <p className="text-lg lg:text-xl leading-relaxed text-ink-secondary max-w-[720px] mb-8">{post.meta.excerpt}</p>
+
+                        <ArticleMetaBar author={author} date={post.meta.date} readingTime={post.meta.readingTime} url={articleUrl} title={post.meta.title} />
                     </div>
                 </Container>
-            </Section>
+            </section>
+
+            {/* Image hero placeholder */}
+            <ArticleHeroImage src={post.meta.image} alt={post.meta.imageAlt ?? post.meta.title} caption={post.meta.imageAlt} />
+
+            {/* Corps split TOC + prose */}
+            <section className="py-12 lg:py-16">
+                <Container>
+                    <div className="max-w-[1080px] mx-auto grid grid-cols-1 lg:grid-cols-[220px_1fr] gap-10 lg:gap-16">
+                        <aside className="hidden lg:block">
+                            <TableOfContents headings={headings} />
+                        </aside>
+                        <ArticleProse>{content}</ArticleProse>
+                    </div>
+                </Container>
+            </section>
+
+            {/* Bio auteur + tags */}
+            <section className="pb-16 lg:pb-20">
+                <Container>
+                    <div className="max-w-[1080px] mx-auto lg:pl-[280px]">
+                        <AuthorBox author={author} />
+
+                        {post.meta.tags.length > 0 && (
+                            <div className="mt-8 flex flex-wrap gap-2">
+                                {post.meta.tags.map((t) => (
+                                    <span key={t} className="px-3.5 py-1.5 rounded-full bg-bg-light text-[13px] font-medium text-ink-secondary">
+                                        #{t}
+                                    </span>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                </Container>
+            </section>
+
+            <RelatedArticles posts={related} />
 
             <FinalCTA />
         </>
     );
 }
-
-const mdxComponents = {
-    h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => <h1 className="mt-10 mb-5" {...props} />,
-    h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => <h2 className="mt-10 mb-4 text-3xl" {...props} />,
-    h3: (props: React.HTMLAttributes<HTMLHeadingElement>) => <h3 className="mt-8 mb-3" {...props} />,
-    p: (props: React.HTMLAttributes<HTMLParagraphElement>) => <p className="my-4 text-lg leading-relaxed" {...props} />,
-    ul: (props: React.HTMLAttributes<HTMLUListElement>) => <ul className="my-4 pl-6 list-disc flex flex-col gap-2 text-lg" {...props} />,
-    ol: (props: React.HTMLAttributes<HTMLOListElement>) => <ol className="my-4 pl-6 list-decimal flex flex-col gap-2 text-lg" {...props} />,
-    li: (props: React.HTMLAttributes<HTMLLIElement>) => <li className="leading-relaxed" {...props} />,
-    strong: (props: React.HTMLAttributes<HTMLElement>) => <strong className="font-semibold text-ink-primary" {...props} />,
-};

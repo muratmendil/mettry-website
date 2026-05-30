@@ -1,40 +1,47 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import Link from "next/link";
+import { useMemo, useState } from "react";
 import { Container } from "@/components/ui/Container";
-import { Section } from "@/components/ui/Section";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { CategoryPills } from "./CategoryPills";
+import { FeaturedArticle } from "./FeaturedArticle";
+import { ArticleCard } from "./ArticleCard";
+import { NewsletterCTA } from "./NewsletterCTA";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
-import { BLOG_CATEGORIES, type PostMeta } from "@/lib/blog-types";
-import { cn } from "@/lib/cn";
-
-const CATEGORY_COLORS: Record<string, string> = {
-    Réglementaire: "#0D4A4D",
-    Énergie: "#F5A042",
-    GMAO: "#058985",
-    "Cas client": "#3498DB",
-    Stratégie: "#7A5AE0",
-};
+import type { PostMeta } from "@/lib/blog-types";
+import { CATEGORY_BY_SLUG, BLOG_CATEGORIES_LIST } from "@/lib/categories";
+import { slugify } from "@/lib/blog-slug-client";
 
 interface Props {
+    featured: PostMeta | null;
     posts: PostMeta[];
 }
 
-export function BlogContent({ posts }: Props) {
-    const [activeCategory, setActiveCategory] = useState<string>("Tous");
+export function BlogContent({ featured, posts }: Props) {
+    const [activeCat, setActiveCat] = useState<string | null>(null);
 
     const filteredPosts = useMemo(() => {
-        if (activeCategory === "Tous") return posts;
-        return posts.filter((p) => p.category === activeCategory);
-    }, [posts, activeCategory]);
+        if (!activeCat) return posts;
+        return posts.filter((p) => slugify(p.category) === activeCat);
+    }, [posts, activeCat]);
+
+    // Si on filtre, on cache la featured
+    const showFeatured = !activeCat && featured;
 
     return (
         <>
-            {/* Hero centré */}
-            <section style={{ background: "var(--color-bg-off-white)" }} className="py-20 lg:py-28">
+            {/* Hero */}
+            <section style={{ background: "var(--color-bg-off-white)" }} className="relative overflow-hidden py-20 lg:py-28">
+                <div
+                    className="absolute -top-20 -left-32 w-[500px] h-[500px] rounded-full pointer-events-none"
+                    style={{
+                        background: "radial-gradient(circle, rgba(5,137,133,0.08), transparent 60%)",
+                        filter: "blur(60px)",
+                    }}
+                    aria-hidden="true"
+                />
                 <Container>
-                    <div className="max-w-3xl mx-auto text-center">
+                    <div className="relative max-w-3xl mx-auto text-center">
                         <Eyebrow>Ressources</Eyebrow>
                         <h1 className="mt-6">Guides, réglementations, bonnes pratiques.</h1>
                         <p className="mt-6 text-lg lg:text-xl max-w-[56ch] mx-auto">
@@ -44,80 +51,44 @@ export function BlogContent({ posts }: Props) {
                 </Container>
             </section>
 
-            {/* Filtres + grille articles */}
-            <Section>
+            {/* Filtres */}
+            <section className="py-12">
                 <Container>
-                    {/* Filtres catégories centrés */}
-                    <div className="flex justify-center mb-12">
-                        <div className="flex flex-wrap gap-2 justify-center max-w-3xl">
-                            {BLOG_CATEGORIES.map((cat) => {
-                                const isActive = activeCategory === cat;
-                                return (
-                                    <button
-                                        key={cat}
-                                        type="button"
-                                        onClick={() => setActiveCategory(cat)}
-                                        className={cn(
-                                            "px-5 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all",
-                                            isActive
-                                                ? "text-white"
-                                                : "bg-bg-off-white text-ink-secondary border border-border-default hover:border-ink-tertiary hover:text-ink-primary"
-                                        )}
-                                        style={isActive ? { background: "#0D4A4D" } : undefined}
-                                    >
-                                        {cat}
-                                    </button>
-                                );
-                            })}
-                        </div>
-                    </div>
+                    <CategoryPills active={activeCat} onSelect={setActiveCat} />
+                </Container>
+            </section>
 
-                    {/* Grille articles */}
+            {/* Featured */}
+            {showFeatured && (
+                <section className="pb-12">
+                    <Container>
+                        <RevealOnScroll>
+                            <FeaturedArticle post={featured} />
+                        </RevealOnScroll>
+                    </Container>
+                </section>
+            )}
+
+            {/* Grille */}
+            <section className="pb-16 lg:pb-20">
+                <Container>
                     {filteredPosts.length === 0 ? (
                         <p className="text-center text-ink-secondary py-12">
                             Pas encore d&apos;article dans cette catégorie.
                         </p>
                     ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {filteredPosts.map((post, i) => {
-                                const color = CATEGORY_COLORS[post.category] ?? "#058985";
-                                return (
-                                    <RevealOnScroll key={post.slug} delay={(i % 3) * 0.08}>
-                                        <Link href={`/blog/${post.slug}`} className="group block h-full">
-                                            <article className="h-full bg-white border border-border-default rounded-card overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-card)]">
-                                                <div
-                                                    className="aspect-[16/10] flex items-center justify-center"
-                                                    style={{ background: `linear-gradient(135deg, ${color}, ${color}80)` }}
-                                                >
-                                                    <span className="text-7xl font-bold text-white/90" style={{ fontFamily: "var(--font-display)" }}>
-                                                        {post.title[0]}
-                                                    </span>
-                                                </div>
-                                                <div className="p-6">
-                                                    <div className="flex items-center gap-3 mb-4">
-                                                        <span
-                                                            className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold"
-                                                            style={{ background: `${color}15`, color }}
-                                                        >
-                                                            {post.category}
-                                                        </span>
-                                                        <span className="text-xs text-ink-tertiary">{post.readingTime}</span>
-                                                    </div>
-                                                    <h3 className="text-lg mb-3 leading-tight">{post.title}</h3>
-                                                    <p className="text-sm leading-relaxed text-ink-secondary line-clamp-3">{post.excerpt}</p>
-                                                    <div className="mt-5 pt-4 border-t border-border-default text-xs text-ink-tertiary">
-                                                        {new Date(post.date).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}
-                                                    </div>
-                                                </div>
-                                            </article>
-                                        </Link>
-                                    </RevealOnScroll>
-                                );
-                            })}
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
+                            {filteredPosts.map((post, i) => (
+                                <RevealOnScroll key={post.slug} delay={(i % 3) * 0.08}>
+                                    <ArticleCard post={post} />
+                                </RevealOnScroll>
+                            ))}
                         </div>
                     )}
                 </Container>
-            </Section>
+            </section>
+
+            <NewsletterCTA />
         </>
     );
 }

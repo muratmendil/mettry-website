@@ -321,3 +321,191 @@ input[type="range"]::-moz-range-thumb {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* ============================================
+   Article prose — styles riches MDX
+   ============================================ */
+
+.article-prose {
+  color: var(--color-ink-primary);
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.article-prose>*+* {
+  margin-top: 0;
+}
+
+.article-prose h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 32px;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 56px 0 20px;
+  color: var(--color-ink-primary);
+  scroll-margin-top: 100px;
+}
+
+.article-prose h2:first-child {
+  margin-top: 0;
+}
+
+.article-prose h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 22px;
+  letter-spacing: -0.018em;
+  line-height: 1.25;
+  margin: 36px 0 14px;
+  color: var(--color-ink-primary);
+  scroll-margin-top: 100px;
+}
+
+.article-prose p {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--color-ink-primary);
+  margin: 0 0 20px;
+  text-wrap: pretty;
+}
+
+.article-prose b,
+.article-prose strong {
+  font-weight: 700;
+  color: var(--color-ink-primary);
+}
+
+.article-prose i,
+.article-prose em {
+  font-style: italic;
+}
+
+.article-prose ul,
+.article-prose ol {
+  margin: 0 0 20px;
+  padding-left: 22px;
+}
+
+.article-prose ul li,
+.article-prose ol li {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--color-ink-primary);
+  margin-bottom: 8px;
+}
+
+.article-prose ul li::marker {
+  color: var(--color-teal-primary);
+}
+
+.article-prose ol li::marker {
+  color: var(--color-teal-primary);
+  font-weight: 700;
+}
+
+.article-prose a {
+  color: var(--color-teal-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(25, 115, 120, 0.3);
+  transition: text-decoration-color 0.15s;
+}
+
+.article-prose a:hover {
+  text-decoration-color: var(--color-teal-dark);
+}
+
+.article-prose code {
+  background: var(--color-bg-off-white);
+  border: 1px solid var(--color-border-default);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-family: var(--font-mono);
+}
+
+.article-prose pre {
+  background: #0c1416;
+  color: #e5e8eb;
+  padding: 18px 22px;
+  border-radius: 14px;
+  overflow-x: auto;
+  margin: 24px 0;
+}
+
+.article-prose pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  font-size: 14px;
+}
+
+.article-prose blockquote {
+  border-left: 3px solid var(--color-teal-primary);
+  padding: 4px 0 4px 22px;
+  font-style: italic;
+  color: var(--color-ink-secondary);
+  margin: 28px 0;
+}
+
+.article-prose hr {
+  border: 0;
+  border-top: 1px solid var(--color-border-default);
+  margin: 44px 0;
+}
+
+/* Bouton Copier le lien — utilisé par ShareButtons (Étape B partie 2) */
+@keyframes copyPulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.08);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.article-prose table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--color-border-default);
+  border-radius: 14px;
+  overflow: hidden;
+  margin: 28px 0;
+  font-size: 15px;
+}
+
+.article-prose table th {
+  background: var(--color-bg-off-white);
+  padding: 14px 18px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-secondary);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+.article-prose table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--color-border-default);
+  color: var(--color-ink-primary);
+  line-height: 1.55;
+}
+
+.article-prose table tr:last-child td {
+  border-bottom: 0;
+}
+
+.article-prose table tr:hover td {
+  background: var(--color-bg-off-white);
+}
