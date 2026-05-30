@@ -8,9 +8,8 @@ import { useDemoModal } from "@/components/chrome/DemoModalProvider";
 const GUARANTEES = ["Sans carte bleue", "Démo personnalisée", "Migration incluse", "Garantie 30 jours"];
 
 const MAIL_LINK_STYLE: React.CSSProperties = {
-    background: "#0A3A3D",
-    border: "1px solid rgba(255,255,255,0.15)",
-    boxShadow: "0 1px 0 rgba(255,255,255,0.06) inset, 0 8px 24px -6px rgba(0,0,0,0.35)",
+    background: "transparent",
+    border: "1px solid rgba(255,255,255,0.25)",
 };
 
 const CURVE_STYLE: React.CSSProperties = { top: 0, transform: "translateY(-99%)" };

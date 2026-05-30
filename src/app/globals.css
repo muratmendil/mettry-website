@@ -93,29 +93,21 @@ h4 {
   text-wrap: balance;
 }
 
-h1:where([class*="text-white"]),
-h2:where([class*="text-white"]),
-h3:where([class*="text-white"]),
-h4:where([class*="text-white"]) {
-  color: white;
-}
-
 p {
   margin: 0;
   color: var(--color-ink-secondary);
   text-wrap: pretty;
 }
 
-p:where([class*="text-white"]) {
-  color: inherit;
-}
-
-h1[class*="text-white/"],
-h2[class*="text-white/"],
-h3[class*="text-white/"],
-h4[class*="text-white/"],
-p[class*="text-white/"] {
-  color: inherit;
+/* ============================================
+   Override forçant : tout texte avec text-white sur fond foncé.
+   Doit gagner contre les color globales (h1/h2/p).
+   On utilise !important parce qu'on doit gagner contre les sélecteurs
+   très spécifiques de typographie globale, et c'est la seule façon
+   propre de garantir le comportement.
+   ============================================ */
+[class*="text-white"] {
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1)) !important;
 }
 
 h1 {
@@ -456,7 +448,7 @@ input[type="range"]::-moz-range-thumb {
   margin: 44px 0;
 }
 
-/* Bouton Copier le lien — utilisé par ShareButtons (Étape B partie 2) */
+/* Bouton Copier le lien — utilisé par ShareButtons */
 @keyframes copyPulse {
   0% {
     transform: scale(1);

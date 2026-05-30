@@ -5,6 +5,25 @@ import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { useDemoModal } from "@/components/chrome/DemoModalProvider";
 import { HeroDashboard } from "./HeroDashboard";
+import { Eyebrow } from "@/components/ui/Eyebrow";
+import { Zap, ShieldCheck, Smartphone } from "lucide-react";
+
+const TRUST_PILLS = [
+    { icon: "flag" as const, label: "Données hébergées en France" },
+    { icon: Zap, label: "Intégration GRDF / Enedis" },
+    { icon: ShieldCheck, label: "Décret Tertiaire intégré" },
+    { icon: Smartphone, label: "Application mobile" },
+];
+
+function FlagFR() {
+    return (
+        <svg width={16} height={11} viewBox="0 0 20 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" className="rounded-[2px] overflow-hidden">
+            <rect width="6.67" height="14" fill="#002395" />
+            <rect x="6.67" width="6.67" height="14" fill="#FFFFFF" />
+            <rect x="13.33" width="6.67" height="14" fill="#ED2939" />
+        </svg>
+    );
+}
 
 export function Hero() {
     const { openDemo } = useDemoModal();
@@ -36,15 +55,23 @@ export function Hero() {
                 <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-16 items-center relative">
                     {/* Left: copy */}
                     <div>
-                        <h1 className="text-[44px] sm:text-[56px] lg:text-[72px] leading-[1.02]" style={{ fontFamily: "var(--font-display)", fontWeight: 800, letterSpacing: "-0.035em" }}>
+                        <Eyebrow>Nouveau · Intégration GRDF & Enedis</Eyebrow>
+
+                        <h1
+                            className="mt-7 text-[44px] sm:text-[56px] lg:text-[72px] leading-[1.02]"
+                            style={{ fontFamily: "var(--font-display)", fontWeight: 800, letterSpacing: "-0.035em" }}
+                        >
                             Le pilotage<br />
                             de votre<br />
                             patrimoine<br />
                             immobilier,<br />
-                            <span className="relative inline-block">
-                                <span className="absolute inset-x-0 bottom-1 h-3 -z-10" style={{ background: "rgba(245,160,66,0.45)" }} aria-hidden="true" />
-                                <span className="relative">enfin centralisé.</span>
-                            </span>
+                            <span style={{
+                                backgroundImage: "linear-gradient(180deg, transparent 60%, rgba(245,160,66,0.5) 60%, rgba(245,160,66,0.5) 95%, transparent 95%)",
+                                boxDecorationBreak: "clone",
+                                WebkitBoxDecorationBreak: "clone",
+                                paddingLeft: "0.04em",
+                                paddingRight: "0.04em",
+                            }}>enfin centralisé.</span>
                         </h1>
 
                         <p className="mt-7 text-lg leading-relaxed text-ink-secondary max-w-[52ch]">
@@ -60,8 +87,28 @@ export function Hero() {
                             </Button>
                         </div>
 
-                        <div className="mt-10 text-[11px] uppercase tracking-[0.14em] font-semibold text-ink-tertiary">
-                            Inclus dans toutes les offres
+                        <div className="mt-10">
+                            <div className="text-[11px] uppercase tracking-[0.14em] font-semibold text-ink-tertiary mb-4">
+                                Inclus dans toutes les offres
+                            </div>
+                            <div className="flex flex-wrap gap-2.5">
+                                {TRUST_PILLS.map((pill) => {
+                                    const Icon = pill.icon;
+                                    return (
+                                        <span
+                                            key={pill.label}
+                                            className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-white border border-border-default text-[13px] font-medium text-ink-primary"
+                                        >
+                                            {pill.icon === "flag" ? (
+                                                <FlagFR />
+                                            ) : (
+                                                <Icon size={14} className="text-ink-secondary" />
+                                            )}
+                                            {pill.label}
+                                        </span>
+                                    );
+                                })}
+                            </div>
                         </div>
                     </div>
 
