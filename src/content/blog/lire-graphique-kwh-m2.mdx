@@ -1,0 +1,98 @@
+---
+title: "Comment lire un graphique kWh/m² (et en tirer des arbitrages)"
+slug: "lire-graphique-kwh-m2"
+excerpt: "Le kWh/m² est l'indicateur roi du suivi énergétique. Mais 250 kWh/m² c'est beaucoup ou peu ? Voici comment l'interpréter, le comparer, et l'utiliser pour décider."
+category: "Énergie"
+tags: ["kWh/m²", "suivi énergétique", "audit"]
+author: emilin
+date: "2026-05-13"
+image: ""
+imageAlt: "Graphique de consommation kWh par m² par bâtiment"
+seo:
+  title: "Lire un graphique kWh/m² : guide pratique"
+  description: "Comment interpréter un indicateur kWh/m², comparer à des références, et prendre les bonnes décisions d'investissement énergétique."
+---
+
+Quand on commence à piloter un parc immobilier au prisme énergétique, **le premier indicateur qu'on rencontre, c'est le kWh/m²**. C'est aussi celui qu'on comprend le moins, parce qu'il dépend tellement de contexte qu'il faut l'apprendre à lire comme une langue étrangère.
+
+Cet article vous donne les clés pour passer de "tiens, ce bâtiment est à 312 kWh/m², c'est bizarre" à "ce bâtiment a un problème de chauffage, on planifie l'audit cet automne".
+
+## La définition de base
+
+Le kWh/m² est la **consommation totale d'énergie finale**, divisée par la **surface utile** du bâtiment, pour une période donnée (généralement une année).
+
+Si une mairie de 2 000 m² consomme 580 000 kWh/an (toutes énergies confondues), son kWh/m² annuel est de 290.
+
+Trois pièges à comprendre tout de suite :
+
+1. **Quelle énergie ?** Si on additionne kWh d'électricité et kWh de gaz, on a un kWh/m² "énergie finale". Si on ne prend que l'électricité, on a un kWh/m² électrique. Si on convertit le gaz et l'élec en énergie primaire (× 2,3 pour l'élec), on a un kWh/m² primaire. **Ces 3 chiffres sont radicalement différents**.
+
+2. **Quelle surface ?** Surface plancher ? Surface utile brute ? Surface utile nette (sans circulations) ? Selon la convention, l'écart peut atteindre 20%.
+
+3. **Sur quelle période ?** Année civile, année glissante, année scolaire pour une école ? Avec ou sans correction DJU ?
+
+<Callout type="warning">
+**Comparez ce qui est comparable.** Un kWh/m² primaire annuel non corrigé DJU n'a **rien à voir** avec un kWh/m² électrique finale corrigé DJU. C'est l'erreur la plus fréquente en réunion COMEX.
+</Callout>
+
+## Les ordres de grandeur en tertiaire français
+
+Voici les références qu'on utilise dans nos audits, en kWh/m² d'énergie **finale**, **toutes énergies**, **corrigés DJU**, surface utile nette :
+
+| Typologie | Plage normale | Plage à investiguer |
+|---|---|---|
+| Bureaux récents (post 2012) | 80 - 130 | au-delà de 180 |
+| Bureaux anciens | 150 - 220 | au-delà de 280 |
+| École primaire | 100 - 160 | au-delà de 200 |
+| Médiathèque | 130 - 200 | au-delà de 250 |
+| Gymnase | 130 - 220 | au-delà de 280 |
+| EHPAD | 200 - 280 | au-delà de 320 |
+
+Ces ordres de grandeur viennent des bases de l'ADEME, du CEREMA et de nos propres audits sur ~120 bâtiments.
+
+<PullQuote>
+« Le kWh/m² ne vous dit pas si un bâtiment va bien. Il vous dit s'il mérite une vraie analyse. »
+</PullQuote>
+
+## Trois patterns à reconnaître
+
+### Pattern 1 : la dérive saisonnière
+
+Le bâtiment consomme 80% de son énergie entre octobre et avril. Classique d'un bâtiment chauffé au gaz, sans climatisation. Si le ratio hiver/été dépasse 5, c'est probablement que **l'isolation est faible** ou que **le programme de chauffe est trop large** (chauffage maintenu hors heures d'occupation, par exemple).
+
+### Pattern 2 : la consommation constante
+
+Le bâtiment consomme presque autant en juillet qu'en janvier. Deux causes typiques :
+- Process technique permanent (datacenter, cuisine collective, salle blanche)
+- Bâtiment climatisé avec consommation été ≈ consommation hiver
+
+Dans les deux cas, l'enjeu n'est pas l'isolation mais **l'efficacité du process** ou de la CTA.
+
+### Pattern 3 : le pic anormal
+
+Tout d'un coup, un mois ressort à 2× la moyenne sans raison apparente. C'est généralement :
+- Une vanne qui ne ferme plus (chaufferie qui chauffe en plein juillet)
+- Un compteur défaillant
+- Un évènement ponctuel (manifestation, travaux)
+
+Ce sont les **plus rentables à corriger** car ça ne coûte rien (juste un déplacement technicien).
+
+<InlineCTA />
+
+## Du kWh/m² à la décision
+
+Une fois l'analyse faite, voici la grille qu'on utilise pour décider :
+
+| Constat | Action probable | Investissement type |
+|---|---|---|
+| Dérive saisonnière forte, isolation faible | Isolation thermique | 100-300 €/m² |
+| Programmation chauffage trop large | Reprogrammation GTB | Quasi-nul |
+| Vanne défaillante | Maintenance corrective | < 1 000 € |
+| Process surdimensionné | Reset CVC | 5-20 k€ |
+| Bâtiment ancien, structure complexe | Audit énergétique complet | 8-15 k€ |
+
+L'idée est que le kWh/m² **n'est pas la fin de l'analyse**, c'est le début. Il sert à **prioriser** les bâtiments sur lesquels on creuse, pas à juger les techniciens ou les utilisateurs.
+
+## Pour aller plus loin
+
+Mettry calcule automatiquement le kWh/m² par bâtiment, multi-fluides, avec correction DJU, et le compare aux référentiels par typologie. Vous voyez en un coup d'œil quels bâtiments méritent une analyse approfondie. Demandez-nous une démo si vous voulez voir ça en live.

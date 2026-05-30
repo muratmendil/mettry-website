@@ -1,0 +1,97 @@
+---
+title: "Le thermostat antigel d'une CTA : rôle, fonctionnement et réglages"
+slug: "thermostat-antigel-cta"
+excerpt: "Petit capteur, gros risque. Comprendre le thermostat antigel de votre centrale de traitement d'air, savoir quand le contrôler, et éviter le sinistre nocturne classique."
+category: "Focus technique"
+tags: ["CVC", "maintenance", "GMAO"]
+author: emilin
+date: "2026-05-26"
+featured: true
+image: ""
+imageAlt: "Centrale de traitement d'air type avec thermostat antigel"
+seo:
+  title: "Thermostat antigel CTA : guide complet pour gestionnaires FM"
+  description: "Tout savoir sur le thermostat antigel d'une centrale de traitement d'air : rôle, réglage, vérifications réglementaires, sinistres typiques."
+---
+
+Si vous gérez un parc tertiaire avec des CTA (centrales de traitement d'air), vous avez forcément déjà entendu parler du thermostat antigel — souvent au pire moment : un matin de janvier, après une nuit à −8°C, quand la batterie chaude vient de geler et que vous regardez la facture du serpentin éclaté.
+
+Ce petit capteur, à 80€ pièce, est censé éviter ça. Pourtant on le retrouve trop souvent débranché, mal réglé, ou simplement oublié dans le plan de maintenance.
+
+## C'est quoi exactement ?
+
+Le thermostat antigel est un capteur capillaire (ou bulb-and-capillary) installé **juste en aval de la batterie chaude** d'une centrale de traitement d'air. Son tube métallique de 3 à 6 mètres est enroulé en serpentin contre la surface de la batterie, pour mesurer la température la plus froide de l'air qui la traverse.
+
+Dès que cette température descend sous un seuil défini — typiquement 4°C —, le thermostat coupe le ventilateur, ferme le registre d'air neuf, et bascule la batterie en circulation forcée. L'objectif est simple : empêcher l'eau de la batterie de geler.
+
+<Callout type="info">
+**En clair :** sans antigel fonctionnel, une nuit de gel mal anticipée peut faire éclater une batterie chaude. Coût moyen du sinistre : 6 000 à 15 000 €, plus les jours d'arrêt du bâtiment.
+</Callout>
+
+## Comment ça marche concrètement ?
+
+Le principe physique est simple. Le tube capillaire est rempli d'un fluide qui se contracte au froid. Sur **la longueur la plus froide** du tube (et pas en moyenne), si la contraction dépasse un seuil, le contact mécanique s'ouvre.
+
+C'est important : un thermostat antigel n'a pas besoin que **toute** sa surface soit froide. **30 cm de tube à 2°C** suffisent à déclencher l'alarme, même si le reste est à 15°C. C'est volontaire : on veut détecter les zones froides locales (mauvaise répartition d'air, registre coincé, etc.).
+
+### Le cycle de déclenchement
+
+1. Température basse détectée → ouverture du contact
+2. Le ventilateur s'arrête immédiatement
+3. Le registre d'air neuf se ferme à 100%
+4. La vanne 3 voies de la batterie passe en circuit fermé (recyclage)
+5. Une alarme remonte vers la GTB ou la GMAO
+
+Quand la température remonte, certains modèles redémarrent automatiquement, d'autres demandent un réarmement manuel. Le manuel est nettement préférable en patrimoine tertiaire : il oblige un opérateur à comprendre **pourquoi** ça a déclenché avant de relancer.
+
+## Quand et comment le vérifier ?
+
+Le contrôle réglementaire des thermostats antigel n'est pas spécifiquement listé dans un arrêté grand public, mais il est de fait imposé par les Conditions Générales de la maintenance CVC et la norme NF EN 13053.
+
+Concrètement, dans un plan de maintenance préventive correctement structuré, le thermostat antigel doit être contrôlé :
+
+- **Avant chaque hiver** (octobre / novembre) : test de déclenchement à froid, vérification de l'enroulement du tube capillaire, mesure de la résistance d'isolement
+- **Au déclenchement** : analyse de la cause, mesure de la température réelle au point chaud / point froid
+- **Après remplacement** : étalonnage et test de déclenchement
+
+<PullQuote>
+« On a tous vu des dossiers où l'antigel était débranché parce qu'il déclenchait trop souvent. À chaque fois, derrière, il y a une batterie qui a coûté 12 000 € à remplacer. »
+</PullQuote>
+
+## Les pièges classiques
+
+Sur 35 sites audités l'an dernier, voici les défauts qu'on a retrouvés le plus souvent :
+
+1. **Tube capillaire mal enroulé** (touches incomplètes contre la batterie) — déclenchements aléatoires
+2. **Seuil mal réglé** : trop bas (3°C) → déclenchement tardif ; trop haut (6°C) → faux positifs en mi-saison
+3. **Câblage shunté** par un technicien excédé par les déclenchements → désactivation totale de la sécurité
+4. **Pas remonté en GTB** : le thermostat coupe la centrale mais personne ne le sait, le bâtiment chauffe mal toute la nuit
+
+<InlineCTA />
+
+## Ce qu'il faut tracer dans la GMAO
+
+Dans Mettry comme dans n'importe quel outil sérieux, voici ce qu'on recommande de tracer pour chaque thermostat antigel :
+
+- Marque, modèle, année de pose
+- Position (entrée/sortie batterie chaude, n° d'enroulement)
+- Seuil réglé (en °C)
+- Date du dernier contrôle préventif
+- Historique des déclenchements (date, heure, durée)
+- Sinistres associés s'il y en a eu
+
+Cette traçabilité permet, après 2-3 ans, de **prédire** les thermostats qui vont défaillir avant qu'ils ne le fassent. C'est exactement ce que le module GMAO de Mettry permet de visualiser via les indicateurs de dérive temporelle.
+
+## Et la sonde T° en aval, ça remplace pas ?
+
+Question fréquente : "On a une sonde de température en aval de la batterie remontée en GTB, ça fait le job non ?"
+
+Réponse : **non, et c'est dangereux de le penser**. Une sonde T° classique mesure la température moyenne de l'air à un point fixe. Elle ne détecte pas les zones froides locales sur la batterie elle-même. Et surtout, elle dépend du fonctionnement de la GTB pour couper le ventilateur — alors que le thermostat antigel agit mécaniquement, **même si la GTB est down**.
+
+Sur les CTA critiques (santé, datacenter, salles serveurs), les deux dispositifs coexistent. Sur le reste du parc tertiaire, le thermostat antigel reste le minimum vital.
+
+## Pour résumer
+
+Le thermostat antigel est une sécurité **mécanique** de 80€ qui protège des batteries à 10 000€. Le contrôler n'est pas optionnel. Et le tracer dans la GMAO est ce qui fait la différence entre un sinistre prévisible et un sinistre évité.
+
+Si vous voulez voir comment Mettry intègre ces contrôles dans le plan de maintenance préventive automatisé, demandez-nous une démo.

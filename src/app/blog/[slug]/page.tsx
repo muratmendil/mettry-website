@@ -13,6 +13,7 @@ import { getAuthor } from "@/lib/authors";
 import { getCategoryByLabel } from "@/lib/categories";
 import { ArticleMetaBar } from "@/components/blog/ArticleMetaBar";
 import { ArticleHeroImage } from "@/components/blog/ArticleHeroImage";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -26,15 +27,37 @@ export async function generateMetadata({ params }: Props) {
     const { slug } = await params;
     const post = getPostBySlug(slug);
     if (!post) return {};
+
+    const articleUrl = `https://mettry.io/blog/${slug}`;
+    const author = getAuthor(post.meta.author);
+
     return {
         title: post.meta.seo?.title ?? post.meta.title,
         description: post.meta.seo?.description ?? post.meta.excerpt,
         openGraph: {
             title: post.meta.title,
             description: post.meta.excerpt,
+            url: articleUrl,
             type: "article",
             publishedTime: post.meta.date,
-            authors: [getAuthor(post.meta.author).name],
+            authors: [author.name],
+            images: [
+                {
+                    url: `${articleUrl}/opengraph-image`,
+                    width: 1200,
+                    height: 630,
+                    alt: post.meta.title,
+                },
+            ],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: post.meta.title,
+            description: post.meta.excerpt,
+            images: [`${articleUrl}/opengraph-image`],
+        },
+        alternates: {
+            canonical: articleUrl,
         },
     };
 }
@@ -58,8 +81,49 @@ export default async function BlogPostPage({ params }: Props) {
         options: { parseFrontmatter: false },
     });
 
+    const postJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        headline: post.meta.title,
+        description: post.meta.excerpt,
+        datePublished: post.meta.date,
+        dateModified: post.meta.date,
+        author: {
+            "@type": "Person",
+            name: author.name,
+            description: author.role,
+        },
+        publisher: {
+            "@type": "Organization",
+            name: "Mettry",
+            logo: {
+                "@type": "ImageObject",
+                url: "https://mettry.io/opengraph-image",
+            },
+        },
+        mainEntityOfPage: {
+            "@type": "WebPage",
+            "@id": articleUrl,
+        },
+        url: articleUrl,
+        inLanguage: "fr",
+    };
+
+    const breadcrumbJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Accueil", item: "https://mettry.io" },
+            { "@type": "ListItem", position: 2, name: "Blog", item: "https://mettry.io/blog" },
+            { "@type": "ListItem", position: 3, name: post.meta.category, item: `https://mettry.io/blog/categorie/${category?.slug ?? ""}` },
+            { "@type": "ListItem", position: 4, name: post.meta.title, item: articleUrl },
+        ],
+    };
+
     return (
         <>
+            <JsonLd id="post-jsonld" data={postJsonLd} />
+            <JsonLd id="breadcrumb-jsonld" data={breadcrumbJsonLd} />
             {/* Hero header */}
             <section style={{ background: "var(--color-bg-off-white)" }} className="relative overflow-hidden pt-12 pb-10 lg:pt-16 lg:pb-12">
                 <div
