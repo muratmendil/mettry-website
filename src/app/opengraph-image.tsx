@@ -44,6 +44,7 @@ export default function Image() {
                 <div style={{ display: "flex", flexDirection: "column", gap: 24, maxWidth: 1000 }}>
                     <div
                         style={{
+                            display: "flex",
                             fontSize: 24,
                             textTransform: "uppercase",
                             letterSpacing: "0.16em",
@@ -53,8 +54,8 @@ export default function Image() {
                     >
                         Pilotage de patrimoine immobilier
                     </div>
-                    <div style={{ fontSize: 72, fontWeight: 800, letterSpacing: "-0.035em", lineHeight: 1.05 }}>
-                        Le pilotage de votre patrimoine immobilier,{" "}
+                    <div style={{ display: "flex", fontSize: 72, fontWeight: 800, letterSpacing: "-0.035em", lineHeight: 1.05, flexWrap: "wrap" }}>
+                        <span>Le pilotage de votre patrimoine immobilier,&nbsp;</span>
                         <span style={{ color: "#F5A042" }}>enfin centralisé.</span>
                     </div>
                 </div>
