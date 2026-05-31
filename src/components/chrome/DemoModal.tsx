@@ -9,7 +9,10 @@ import { MettryLogo } from "@/components/ui/MettryLogo";
 import { Step1Form } from "./demo/Step1Form";
 import { Step2Calendar } from "./demo/Step2Calendar";
 import { Step3Recap } from "./demo/Step3Recap";
-import type { DemoFormValues } from "@/lib/demo-schema";
+import { z } from "zod";
+import { demoStep1Schema } from "@/lib/demo-schema";
+
+type DemoFormValues = z.infer<typeof demoStep1Schema>;
 
 type Stage = 1 | 2 | 3 | "success";
 
@@ -122,9 +125,9 @@ export function DemoModal() {
                                             {stage === 3 && (
                                                 <motion.div key="s3" initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -12 }} transition={{ duration: 0.2 }}>
                                                     <Step3Recap
-                                                        data={data as DemoData}
+                                                        data={data as DemoData & { date: string; time: string }}
                                                         onBack={() => setStage(2)}
-                                                        onConfirm={() => setStage("success")}
+                                                        onSubmit={() => setStage("success")}
                                                     />
                                                 </motion.div>
                                             )}

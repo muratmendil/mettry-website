@@ -3,9 +3,10 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight } from "lucide-react";
-import { demoStep1Schema, type DemoFormValues, ROLES, PARC_SIZES } from "@/lib/demo-schema";
+import { demoStep1Schema, ROLES, PARC_SIZES } from "@/lib/demo-schema";
+import { z } from "zod";
 
-type Step1Values = DemoFormValues;
+type Step1Values = z.infer<typeof demoStep1Schema>;
 
 interface Step1FormProps {
     defaultValues?: Partial<Step1Values>;
