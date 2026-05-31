@@ -1,0 +1,91 @@
+/* Pulsation du capteur sur le toit du bâtiment */
+@keyframes sensorPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.4);
+        opacity: 0.6;
+    }
+}
+
+.sensorPulse {
+    animation: sensorPulse 2s ease-in-out infinite;
+}
+
+/* Halo derrière le capteur, plus lent */
+@keyframes sensorHalo {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.55;
+    }
+
+    50% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+.sensorHalo {
+    animation: sensorHalo 2s ease-in-out infinite;
+}
+
+/* Flottement subtil du chevron "Défilez" */
+@keyframes floatChevron {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(6px);
+    }
+}
+
+.floatChevron {
+    animation: floatChevron 1.8s ease-in-out infinite;
+}
+
+/* Particules de données : travel d'un point à l'autre. 
+   Les variables --dx, --dy seront définies inline en JS pour chaque particule. */
+@keyframes pulseTravel {
+    0% {
+        transform: translate(0, 0);
+        opacity: 0;
+    }
+
+    12% {
+        opacity: 1;
+    }
+
+    88% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(var(--dx), var(--dy));
+        opacity: 0;
+    }
+}
+
+.pulseTravel {
+    animation: pulseTravel 1.7s linear var(--delay, 0s) infinite;
+}
+
+/* Respect du prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+
+    .sensorPulse,
+    .sensorHalo,
+    .floatChevron,
+    .pulseTravel {
+        animation: none !important;
+    }
+}

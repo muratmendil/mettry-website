@@ -3,6 +3,7 @@ import { Hero } from "@/components/home/Hero";
 import { SocialProofStrip } from "@/components/home/SocialProofStrip";
 import { ProblemSection } from "@/components/home/ProblemSection";
 import { ModulesSection } from "@/components/home/ModulesSection";
+import { SyncAnimation } from "@/components/home/sync-animation/SyncAnimation";
 
 const FeatureShowcase = dynamic(() => import("@/components/home/FeatureShowcase").then((m) => ({ default: m.FeatureShowcase })));
 const TestimonialsSection = dynamic(() => import("@/components/home/TestimonialsSection").then((m) => ({ default: m.TestimonialsSection })));
@@ -14,6 +15,7 @@ export default function HomePage() {
     <>
       <Hero />
       <SocialProofStrip />
+      <SyncAnimation />
       <ProblemSection />
       <ModulesSection />
       <FeatureShowcase />
