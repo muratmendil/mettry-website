@@ -93,7 +93,6 @@ export function Hero() {
                             </div>
                             <div className="flex flex-wrap gap-2.5">
                                 {TRUST_PILLS.map((pill) => {
-                                    const Icon = pill.icon;
                                     return (
                                         <span
                                             key={pill.label}
@@ -102,7 +101,7 @@ export function Hero() {
                                             {pill.icon === "flag" ? (
                                                 <FlagFR />
                                             ) : (
-                                                <Icon size={14} className="text-ink-secondary" />
+                                                <pill.icon size={14} className="text-ink-secondary" />
                                             )}
                                             {pill.label}
                                         </span>
