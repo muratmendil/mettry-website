@@ -32,11 +32,12 @@ const POSITIONS_DESKTOP = {
     hub: { x: 0.77, y: 0.51 },
 };
 
+// Mobile : disposition verticale plus aérée
 const POSITIONS_MOBILE = {
-    enedis: { x: 0.27, y: 0.18 },
-    grdf: { x: 0.73, y: 0.18 },
-    building: { x: 0.5, y: 0.45 },
-    hub: { x: 0.5, y: 0.78 },
+    enedis: { x: 0.22, y: 0.22 },
+    grdf: { x: 0.78, y: 0.22 },
+    building: { x: 0.5, y: 0.5 },
+    hub: { x: 0.5, y: 0.82 },
 };
 
 const ENEDIS_COLOR = "#0080A0";
@@ -64,14 +65,12 @@ export function SyncScene({ p, isNarrow }: SyncSceneProps) {
     const buildingXY = { x: positions.building.x * dims.w, y: positions.building.y * dims.h };
     const hubXY = { x: positions.hub.x * dims.w, y: positions.hub.y * dims.h };
 
-    // === Phase 1 ===
     const buildingEnter = easeOut(seg(p, 0.02, 0.20));
     const buildingOpacity = buildingEnter * (1 - 0.35 * seg(p, 0.80, 1.0));
     const buildingY = (1 - buildingEnter) * 46;
     const buildingScale = 0.92 + buildingEnter * 0.08;
     const windowsProgress = easeOut(seg(p, 0.30, 0.55));
 
-    // === Phase 2 ===
     const cardsEnter = easeOut(seg(p, 0.18, 0.34));
     const cardsOpacity = cardsEnter;
     const cardsY = (1 - cardsEnter) * 20;
@@ -80,28 +79,27 @@ export function SyncScene({ p, isNarrow }: SyncSceneProps) {
     const grdfValue = Math.round(112 * valueProgress);
     const sourceLinesProgress = easeOut(seg(p, 0.20, 0.40));
 
-    // === Phase 3 ===
     const hubEnter = easeOut(seg(p, 0.52, 0.68));
     const hubOpacity = hubEnter;
     const hubScale = 0.6 + hubEnter * 0.4;
     const hubLineProgress = easeOut(seg(p, 0.50, 0.72));
 
-    // Particules
     const pulsesFadeIn = clamp(seg(p, 0.35, 0.50));
     const pulsesFadeOut = 1 - clamp(seg(p, 0.92, 1.0));
     const sourcePulsesOpacity = pulsesFadeIn * pulsesFadeOut;
     const hubPulsesOpacity = clamp(seg(p, 0.50, 0.65)) * pulsesFadeOut;
 
-    // === Phase 4 ===
     const ringProgress = easeOut(seg(p, 0.66, 0.90));
     const checkProgress = easeOut(seg(p, 0.84, 0.97));
     const pillProgress = easeOut(seg(p, 0.78, 0.92));
     const kpiProgress = easeOut(seg(p, 0.72, 0.98));
 
-    // Chrome
     const titleOpacity = clamp(seg(p, 0.04, 0.12)) * (1 - clamp(seg(p, 0.94, 1.0)));
     const hintOpacity = 1 - clamp(seg(p, 0.0, 0.05));
     const activePhase = Math.min(3, Math.floor(p * 4));
+
+    // Espacement du label sous le bâtiment, adapté au mobile
+    const buildingLabelOffset = isNarrow ? 40 : 56;
 
     return (
         <div ref={sceneRef} className="absolute inset-0 overflow-hidden" aria-hidden="true">
@@ -117,8 +115,8 @@ export function SyncScene({ p, isNarrow }: SyncSceneProps) {
                 style={{
                     top: -100,
                     left: -100,
-                    width: 500,
-                    height: 500,
+                    width: isNarrow ? 300 : 500,
+                    height: isNarrow ? 300 : 500,
                     background: "radial-gradient(circle, rgba(0,128,160,0.15), transparent 60%)",
                     filter: "blur(60px)",
                 }}
@@ -128,8 +126,8 @@ export function SyncScene({ p, isNarrow }: SyncSceneProps) {
                 style={{
                     bottom: -100,
                     right: -100,
-                    width: 500,
-                    height: 500,
+                    width: isNarrow ? 300 : 500,
+                    height: isNarrow ? 300 : 500,
                     background: "radial-gradient(circle, rgba(245,160,66,0.12), transparent 60%)",
                     filter: "blur(60px)",
                 }}
@@ -144,7 +142,6 @@ export function SyncScene({ p, isNarrow }: SyncSceneProps) {
                 }}
             />
 
-            {/* Connecteurs et particules */}
             {dims.w > 0 && (
                 <>
                     <Connectors
@@ -166,37 +163,73 @@ export function SyncScene({ p, isNarrow }: SyncSceneProps) {
                 </>
             )}
 
-            {/* Titre persistant */}
-            <div
-                className="absolute left-1/2 -translate-x-1/2 text-center px-6 z-20"
-                style={{ top: "8%", opacity: titleOpacity }}
-            >
+            {/* Titre persistant — caché sur mobile, trop encombrant */}
+            {!isNarrow && (
                 <div
-                    className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full mb-4"
-                    style={{ background: "var(--color-teal-light)" }}
+                    className="absolute left-1/2 -translate-x-1/2 text-center px-6 z-20"
+                    style={{ top: "8%", opacity: titleOpacity }}
                 >
-                    <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--color-orange)" }} />
-                    <span
-                        className="text-[11px] font-bold uppercase tracking-[0.14em]"
-                        style={{ color: "var(--color-teal-dark)", fontFamily: "var(--font-mono)" }}
+                    <div
+                        className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full mb-4"
+                        style={{ background: "var(--color-teal-light)" }}
                     >
-                        Synchronisation automatique
-                    </span>
+                        <span className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--color-orange)" }} />
+                        <span
+                            className="text-[11px] font-bold uppercase tracking-[0.14em]"
+                            style={{ color: "var(--color-teal-dark)", fontFamily: "var(--font-mono)" }}
+                        >
+                            Synchronisation automatique
+                        </span>
+                    </div>
+                    <h2
+                        style={{
+                            fontFamily: "var(--font-display)",
+                            fontWeight: 800,
+                            fontSize: "44px",
+                            letterSpacing: "-0.028em",
+                            lineHeight: 1.1,
+                            maxWidth: 600,
+                            margin: "0 auto",
+                        }}
+                    >
+                        De vos compteurs à Mettry, sans saisie.
+                    </h2>
                 </div>
-                <h2
-                    style={{
-                        fontFamily: "var(--font-display)",
-                        fontWeight: 800,
-                        fontSize: isNarrow ? "28px" : "44px",
-                        letterSpacing: "-0.028em",
-                        lineHeight: 1.1,
-                        maxWidth: 600,
-                        margin: "0 auto",
-                    }}
+            )}
+
+            {/* Sur mobile : titre compact au-dessus */}
+            {isNarrow && (
+                <div
+                    className="absolute left-1/2 -translate-x-1/2 text-center px-4 z-20 w-full"
+                    style={{ top: "4%", opacity: titleOpacity }}
                 >
-                    De vos compteurs à Mettry, sans saisie.
-                </h2>
-            </div>
+                    <div
+                        className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full mb-2"
+                        style={{ background: "var(--color-teal-light)" }}
+                    >
+                        <span className="w-1 h-1 rounded-full" style={{ background: "var(--color-orange)" }} />
+                        <span
+                            className="text-[9px] font-bold uppercase tracking-[0.12em]"
+                            style={{ color: "var(--color-teal-dark)", fontFamily: "var(--font-mono)" }}
+                        >
+                            Synchronisation automatique
+                        </span>
+                    </div>
+                    <h2
+                        style={{
+                            fontFamily: "var(--font-display)",
+                            fontWeight: 800,
+                            fontSize: "20px",
+                            letterSpacing: "-0.022em",
+                            lineHeight: 1.15,
+                            maxWidth: "90%",
+                            margin: "0 auto",
+                        }}
+                    >
+                        De vos compteurs à Mettry, sans saisie.
+                    </h2>
+                </div>
+            )}
 
             {/* Enedis */}
             <div className="absolute" style={{ left: enedisXY.x, top: enedisXY.y, transform: "translate(-50%, -50%)" }}>
@@ -209,6 +242,7 @@ export function SyncScene({ p, isNarrow }: SyncSceneProps) {
                     color={ENEDIS_COLOR}
                     opacity={cardsOpacity}
                     translateY={cardsY}
+                    compact={isNarrow}
                 />
             </div>
 
@@ -223,6 +257,7 @@ export function SyncScene({ p, isNarrow }: SyncSceneProps) {
                     color={GRDF_COLOR}
                     opacity={cardsOpacity}
                     translateY={cardsY}
+                    compact={isNarrow}
                 />
             </div>
 
@@ -233,20 +268,22 @@ export function SyncScene({ p, isNarrow }: SyncSceneProps) {
                     translateY={buildingY}
                     scale={buildingScale}
                     windowsProgress={windowsProgress}
+                    isNarrow={isNarrow}
                 />
                 <div
-                    className="absolute left-1/2 -translate-x-1/2 text-sm font-semibold whitespace-nowrap"
+                    className="absolute left-1/2 -translate-x-1/2 font-semibold whitespace-nowrap"
                     style={{
-                        top: "calc(100% + 16px)",
+                        top: `calc(100% + ${buildingLabelOffset}px)`,
                         opacity: buildingOpacity,
                         color: "var(--color-teal-dark)",
+                        fontSize: isNarrow ? 12 : 14,
                     }}
                 >
                     Votre patrimoine
                 </div>
             </div>
 
-            {/* Hub Mettry — avec toutes les progressions de phase 4 */}
+            {/* Hub Mettry */}
             <div className="absolute" style={{ left: hubXY.x, top: hubXY.y, transform: "translate(-50%, -50%)" }}>
                 <MettryHub
                     scale={hubScale}
@@ -255,20 +292,26 @@ export function SyncScene({ p, isNarrow }: SyncSceneProps) {
                     checkProgress={checkProgress}
                     pillProgress={pillProgress}
                     kpiProgress={kpiProgress}
+                    compact={isNarrow}
                 />
             </div>
 
-            {/* Hint */}
-            <div
-                className="absolute left-1/2 -translate-x-1/2 text-center"
-                style={{ bottom: "20%", opacity: hintOpacity }}
-            >
-                <div className="text-xs text-ink-tertiary uppercase tracking-[0.12em] mb-1">Défilez</div>
-                <ChevronDown size={20} className={`text-ink-tertiary mx-auto ${styles.floatChevron}`} />
-            </div>
+            {/* Hint — masqué sur mobile */}
+            {!isNarrow && (
+                <div
+                    className="absolute left-1/2 -translate-x-1/2 text-center"
+                    style={{ bottom: "20%", opacity: hintOpacity }}
+                >
+                    <div className="text-xs text-ink-tertiary uppercase tracking-[0.12em] mb-1">Défilez</div>
+                    <ChevronDown size={20} className={`text-ink-tertiary mx-auto ${styles.floatChevron}`} />
+                </div>
+            )}
 
-            {/* Légendes */}
-            <div className="absolute left-1/2 -translate-x-1/2 text-center bottom-[10%] w-full max-w-md px-6 h-12">
+            {/* Légendes de phase */}
+            <div
+                className="absolute left-1/2 -translate-x-1/2 text-center w-full max-w-md px-6 h-12"
+                style={{ bottom: isNarrow ? "8%" : "10%" }}
+            >
                 {PHASES.map((phase, i) => {
                     const center = (i + 0.5) / 4;
                     const phaseOpacity = clamp(1 - Math.abs(p - center) / 0.17);
@@ -279,19 +322,25 @@ export function SyncScene({ p, isNarrow }: SyncSceneProps) {
                             style={{ opacity: phaseOpacity, pointerEvents: "none" }}
                         >
                             <div
-                                className="text-xl font-bold mb-1"
-                                style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.018em" }}
+                                className="font-bold mb-1"
+                                style={{
+                                    fontFamily: "var(--font-display)",
+                                    letterSpacing: "-0.018em",
+                                    fontSize: isNarrow ? 14 : 20,
+                                }}
                             >
                                 {phase.title}
                             </div>
-                            <div className="text-sm text-ink-secondary">{phase.subtitle}</div>
+                            <div className="text-sm text-ink-secondary" style={{ fontSize: isNarrow ? 11 : 14 }}>
+                                {phase.subtitle}
+                            </div>
                         </div>
                     );
                 })}
             </div>
 
             {/* Indicateur 4 points */}
-            <div className="absolute left-1/2 -translate-x-1/2 bottom-6 flex items-center gap-2">
+            <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2" style={{ bottom: isNarrow ? 20 : 24 }}>
                 {[0, 1, 2, 3].map((i) => {
                     const isActive = i === activePhase;
                     return (
